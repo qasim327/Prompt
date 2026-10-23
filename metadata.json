@@ -1,0 +1,6 @@
+{
+  "name": "PromptVault",
+  "description": "Production-ready modern AI Prompt Library with curated prompts, one-click copy, and multi-platform launching for ChatGPT, Gemini, Leonardo AI, Midjourney and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

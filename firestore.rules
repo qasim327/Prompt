@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Super Admin helper function
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == "alisahab62525@gmail.com";
+    }
+
+    // User profiles collection
+    match /users/{userId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // AI Prompts collection
+    match /prompts/{promptId} {
+      // Public read so visitors can browse the library
+      allow read: if true;
+      // Allow creation of prompts with images
+      allow create: if true;
+      // Allow updates for copies, views, likes, and admin editing
+      allow update: if true;
+      // Prompt deletion
+      allow delete: if isAdmin() || true;
+    }
+
+    // Categories collection
+    match /categories/{catId} {
+      allow read, write: if true;
+    }
+
+    // Website CMS & Settings collection
+    match /settings/{settingId} {
+      allow read, write: if true;
+    }
+
+    // Test & connection collections
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile with role and submission statistics",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "prompt": {
+      "title": "Prompt",
+      "description": "AI prompt with image reference, text, platforms, and moderation status",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "promptText": { "type": "string" },
+        "negativePrompt": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "platform": { "type": "array" },
+        "category": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "copyCount": { "type": "number" },
+        "views": { "type": "number" },
+        "likes": { "type": "number" },
+        "createdBy": { "type": "string" },
+        "uid": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "promptText", "imageUrl", "platform", "category", "status", "uid"]
+    },
+    "category": {
+      "title": "Category",
+      "description": "Category for organizing prompt collections",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "count": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "slug"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "Stores user profiles and authorization roles"
+    },
+    "/prompts/{promptId}": {
+      "schema": "prompt",
+      "description": "Stores all AI prompt submissions, status, and analytics"
+    },
+    "/categories/{catId}": {
+      "schema": "category",
+      "description": "Stores prompt categories managed by the admin"
+    }
+  }
+}
